@@ -19,9 +19,9 @@ namespace Faker.Types.Basic
             }
         }
 
-        public T getObj<T>()
+        public object getObj()
         {
-            return (T)Convert.ChangeType((byte)_rnd.Next(256), typeof(T));
+            return (byte)_rnd.Next(256);
         }
     }
 }

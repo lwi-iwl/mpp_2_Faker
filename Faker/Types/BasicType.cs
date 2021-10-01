@@ -1,4 +1,5 @@
 ﻿using Faker.Types.Basic;
+using Faker.Types.Basic.Collection;
 using Faker.Types.Basic.Floating;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace Faker.Types
             _basicTypes.Add(new BasicFloat());
             _basicTypes.Add(new BasicDouble());
             _basicTypes.Add(new BasicDecimal());
+            _basicTypes.Add(new BasicString());
         }
 
         public List<BasicInterface> BasicTypes

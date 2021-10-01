@@ -19,11 +19,11 @@ namespace Faker.Types.Basic.Floating
             }
         }
 
-        public T getObj<T>()
+        public object getObj()
         {
             var buffer = new byte[8];
             _rnd.NextBytes(buffer);
-            return (T)Convert.ChangeType(BitConverter.ToDouble(buffer, 0), typeof(T));
+            return BitConverter.ToDouble(buffer, 0);
         }
     }
 }

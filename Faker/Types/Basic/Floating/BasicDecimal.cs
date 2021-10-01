@@ -18,7 +18,7 @@ namespace Faker.Types.Basic.Floating
                 return _type;
             }
         }
-        public T getObj<T>()
+        public object getObj()
         {
             int lo = _rnd.Next(int.MinValue, int.MaxValue);
             int mid = _rnd.Next(int.MinValue, int.MaxValue);
@@ -28,7 +28,7 @@ namespace Faker.Types.Basic.Floating
 
             decimal randomDecimal = new decimal(lo, mid, hi, isNegative, scale);
 
-            return (T)Convert.ChangeType(randomDecimal, typeof(T)); ;
+            return randomDecimal;
         }
     }
 }

@@ -7,8 +7,4 @@
     <StartupObject />
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Types\Basic\Collection\" />
-  </ItemGroup>
-
 </Project>

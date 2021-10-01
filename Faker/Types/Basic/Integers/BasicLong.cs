@@ -19,11 +19,11 @@ namespace Faker.Types.Basic
             }
         }
 
-        public T getObj<T>()
+        public object getObj()
         {
             var buffer = new byte[8];
             _rnd.NextBytes(buffer);
-            return (T)Convert.ChangeType(BitConverter.ToInt64(buffer, 0), typeof(T));
+            return BitConverter.ToInt64(buffer, 0);
         }
     }
 }

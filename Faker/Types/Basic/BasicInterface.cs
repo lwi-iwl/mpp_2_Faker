@@ -13,6 +13,6 @@ namespace Faker.Types.Basic
             get;
         }
 
-        public T getObj<T>();
+        public object getObj();
     }
 }
