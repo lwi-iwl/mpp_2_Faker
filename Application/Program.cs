@@ -9,28 +9,27 @@ namespace Application
         static void Main(string[] args)
         {
             MainFaker faker = new MainFaker();
-            //Int32 i = faker.Create<Int32>();
-            //Console.WriteLine(faker.Create<byte>());
-            //Console.WriteLine(i);
-            //Console.WriteLine(faker.Create<bool>());
-            //Console.WriteLine(faker.Create<string>());
-            //Console.WriteLine(typeof(List<int>));
-            //Console.WriteLine(faker.Create<Foo>().In);
-            Console.WriteLine(faker.Create<Foo>()._h);
+            List<Foo> list = faker.Create<List<Foo>>();
+            foreach (Foo i in list)
+            {
+                Console.WriteLine(i.In);
+            }
+            Console.WriteLine(faker.Create<int>());
+            Console.WriteLine(faker.Create<IList<int>>());
         }
 
     }
     public class Foo
     {
         private int _i;
-        private int _g;
+        private string _g;
         public int _h;
 
         public Foo(int i)
         {
             _i = i;
         }
-        public int In
+        public string In
         {
             set
             {

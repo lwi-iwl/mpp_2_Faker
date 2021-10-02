@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker.Types.Basic
 {
-    interface BasicInterface
+    public interface BasicInterface
     {
         public Type TypeGetting
         {

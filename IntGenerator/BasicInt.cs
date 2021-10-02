@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker.Types.Basic
 {
-    class BasicInt: BasicInterface
+    class BasicInt:BasicInterface
     {
         private Type _type = typeof(int);
         private Random _rnd = new Random();

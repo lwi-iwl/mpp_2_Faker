@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker", "Faker\Faker.csproj", "{8DF63B05-B5A1-4658-909D-A484A6B6CCA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker", "Faker\Faker.csproj", "{8DF63B05-B5A1-4658-909D-A484A6B6CCA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{A6DF8542-E69D-48ED-9EA6-5703EE6C0A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{A6DF8542-E69D-48ED-9EA6-5703EE6C0A3B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8DF63B05-B5A1-4658-909D-A484A6B6CCA1} = {8DF63B05-B5A1-4658-909D-A484A6B6CCA1}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntGenerator", "IntGenerator\IntGenerator.csproj", "{FB577CA7-B714-4DC6-8C10-1C16D968B82A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateGenerator", "DateGenerator\DateGenerator.csproj", "{774F0310-A743-45F3-B83B-00BE088128B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "PluginInterface\PluginInterface.csproj", "{65E190B3-AED6-49CA-A29C-6E6859F67FB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +30,18 @@ Global
 		{A6DF8542-E69D-48ED-9EA6-5703EE6C0A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6DF8542-E69D-48ED-9EA6-5703EE6C0A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6DF8542-E69D-48ED-9EA6-5703EE6C0A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB577CA7-B714-4DC6-8C10-1C16D968B82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB577CA7-B714-4DC6-8C10-1C16D968B82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB577CA7-B714-4DC6-8C10-1C16D968B82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB577CA7-B714-4DC6-8C10-1C16D968B82A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774F0310-A743-45F3-B83B-00BE088128B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774F0310-A743-45F3-B83B-00BE088128B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774F0310-A743-45F3-B83B-00BE088128B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774F0310-A743-45F3-B83B-00BE088128B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E190B3-AED6-49CA-A29C-6E6859F67FB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E190B3-AED6-49CA-A29C-6E6859F67FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E190B3-AED6-49CA-A29C-6E6859F67FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E190B3-AED6-49CA-A29C-6E6859F67FB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
