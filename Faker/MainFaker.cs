@@ -74,7 +74,7 @@ namespace Faker
                 _pastTypes.Add(type);
             }
             object newObj = null;
-            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             int paramint = 0;
             bool isCreate = false;
             foreach (ConstructorInfo constructor in constructors)
@@ -105,9 +105,11 @@ namespace Faker
                         if (flag)
                             parameters.Add(Create(p.ParameterType));
                     }
-
-                    //newObj = constructor.Invoke(new object[] { }, parameters.ToArray());
-                    newObj = Activator.CreateInstance(constructor.ReflectedType, parameters.ToArray());
+                    //if (constructor.IsPublic)
+                    newObj = constructor.Invoke(parameters.ToArray());
+                    //    newObj = Activator.CreateInstance(constructor.ReflectedType, parameters.ToArray());
+                    //else
+                    //    newObj = Activator.CreateInstance(constructor.ReflectedType, parameters.ToArray());
                 }
             }
             if (isCreate)

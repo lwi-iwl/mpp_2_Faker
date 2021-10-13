@@ -32,9 +32,27 @@ namespace Application
             Auto auto = faker1.Create<Auto>();
             Console.WriteLine(auto.Name);
             Console.WriteLine(auto.Cost);
+            Console.WriteLine(faker.Create<NewClass>().I1);
         }
 
     }
+
+    public class NewClass
+    {
+        public string _i;
+        private NewClass(string i)
+        {
+            _i = i;
+        }
+        public string I1
+        {
+            get
+            {
+                return _i;
+            }
+        }
+    }
+
     public class Foo
     {
         private int _i;
@@ -97,7 +115,7 @@ namespace Application
         }
     }
 
-    class A
+    public class A
     {
         public B GetSetB 
         {
@@ -105,7 +123,7 @@ namespace Application
         }
     }
 
-    class B
+    public class B
     {
         public C GetSetC
         {
@@ -113,7 +131,7 @@ namespace Application
         }
     }
 
-    class C
+    public class C
     {
         public A GetSetA
         {
@@ -122,7 +140,7 @@ namespace Application
     }
 
 
-    class Auto
+    public class Auto
     {
         public string Name { get;}
         public Auto(string name) 
