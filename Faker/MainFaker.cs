@@ -13,10 +13,16 @@ namespace Faker
     {
         private BasicType _basic = new BasicType();
         private List<Type> _sysTypes = typeof(Assembly).Assembly.GetExportedTypes().ToList();
+        private List<ConfigElement> _configElements;
         private List<Type> _pastTypes;
         public MainFaker()
         {
             
+        }
+
+        public MainFaker(FakerConfig fakerConfig)
+        {
+            _configElements = fakerConfig.GetCustomTypes;
         }
         public T Create<T>()
         {
@@ -63,40 +69,101 @@ namespace Faker
 
         private object CreateCustom(Type type)
         {
+            if (_pastTypes.Count == 0 || !(_pastTypes.Last() == null))
+            {
+                _pastTypes.Add(type);
+            }
             object newObj = null;
-            ConstructorInfo[] constructors = type.GetConstructors();
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+            int paramint = 0;
+            bool isCreate = false;
             foreach (ConstructorInfo constructor in constructors)
             {
                 ParameterInfo[] pars = constructor.GetParameters();
-                List<object> parameters = new List<object>();
-                foreach (ParameterInfo p in pars)
-                {
-                    parameters.Add(Create(p.ParameterType));
-                }
-                newObj = Activator.CreateInstance(constructor.ReflectedType, parameters.ToArray());
+                if (pars.Length > paramint)
+                    paramint = pars.Length;
             }
-            MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            foreach (MethodInfo method in methods)
+            foreach (ConstructorInfo constructor in constructors)
             {
-                if (method.DeclaringType.GetProperties().Any(prop => prop.SetMethod == method))
+                ParameterInfo[] pars = constructor.GetParameters();
+                if (paramint == pars.Length)
                 {
-                    ParameterInfo[] pars = method.GetParameters();
+                    isCreate = true;
                     List<object> parameters = new List<object>();
                     foreach (ParameterInfo p in pars)
                     {
-                        parameters.Add(Create(p.ParameterType));
+                        bool flag = true;
+                        if (_configElements != null)
+                            foreach (ConfigElement configElement in _configElements)
+                            {
+                                if (configElement.GetMemberInfo.Name.ToLower() == p.Name.ToLower() && p.ParameterType == configElement.GetCustomType.TypeGetting)
+                                {
+                                    parameters.Add(configElement.GetCustomType.getObj());
+                                    flag = false;
+                                }
+                            }
+                        if (flag)
+                            parameters.Add(Create(p.ParameterType));
                     }
-                    method.Invoke(newObj, parameters.ToArray());
+
+                    //newObj = constructor.Invoke(new object[] { }, parameters.ToArray());
+                    newObj = Activator.CreateInstance(constructor.ReflectedType, parameters.ToArray());
                 }
             }
-            FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            foreach (FieldInfo field in fields)
+            if (isCreate)
             {
 
-                field.SetValue(newObj, Create(field.FieldType));
+                FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                foreach (FieldInfo field in fields)
+                {
+                    bool flag = true;
+                    if (_configElements!=null)
+                        foreach (ConfigElement configElement in _configElements)
+                        {
+                            if (configElement.GetMemberInfo.MemberType == MemberTypes.Field)
+                            {
+                                if (((FieldInfo)configElement.GetMemberInfo) == field)
+                                {
+                                    field.SetValue(newObj, configElement.GetCustomType.getObj());
+                                    flag = false;
+                                }
+                            }
+                        }
+                    if (flag)
+                        field.SetValue(newObj, Create(field.FieldType));
+                }
+
+                MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                foreach (MethodInfo method in methods)
+                {
+                    bool flag = true;
+                    if (_configElements != null)
+                        foreach (ConfigElement configElement in _configElements)
+                        {
+                            if (configElement.GetMemberInfo.MemberType == MemberTypes.Property)
+                            {
+                                if (configElement.GetMemberInfo == method.DeclaringType.GetProperties()[0] && method.DeclaringType.GetProperties()[0].GetSetMethod()!=null)
+                                {
+                                    List<object> parameters = new List<object>();
+                                    ((PropertyInfo)configElement.GetMemberInfo).SetValue(type, configElement.GetCustomType.getObj());
+                                    flag = false;
+                                }
+                            }
+                        }
+                    if (flag && method.DeclaringType.GetProperties().Any(prop => prop.SetMethod == method))
+                    {
+                        ParameterInfo[] pars = method.GetParameters();
+                        List<object> parameters = new List<object>();
+                        foreach (ParameterInfo p in pars)
+                        {
+                            parameters.Add(Create(p.ParameterType));
+                        }
+                        method.Invoke(newObj, parameters.ToArray());
+                    }
+                }
             }
-            if (!(_pastTypes.Last() == null))
-                _pastTypes.Add(type);
+            else
+                return null;
             return newObj;
         }
     }
